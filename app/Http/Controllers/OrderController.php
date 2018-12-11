@@ -6,6 +6,7 @@ use App\Order;
 use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Debug\Tests\Fixtures\ToStringThrower;
 
 class OrderController extends Controller
 {
@@ -73,11 +74,16 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::find($id);
-        $orderDetails = $order->products;
+        $products = $order->products;
+        $totalPrice = 0;
+
+        foreach ($products as $product)
+            $totalPrice += $product->price * $product->pivot->quantity;
 
         return view('orders.show')
             ->with('order', $order)
-            ->with('orderDetails', $orderDetails);
+            ->with('products', $products)
+            ->with('totalPrice', $totalPrice);
     }
 
     /**
@@ -107,6 +113,6 @@ class OrderController extends Controller
         $order = Order::find($id);
         $order->delete();
 
-        return back();
+        return redirect(route('orders.index'));
     }
 }

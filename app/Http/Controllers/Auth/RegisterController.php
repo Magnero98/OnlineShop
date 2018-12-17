@@ -64,10 +64,17 @@ class RegisterController extends Controller
     {
         return User::create([
             'role_id' => 1,
+            'image' => $this->getImage($data['gender']),
             'name' => $data['name'],
+            'gender' => $data['gender'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'dateOfBirth' => $data['dateOfBirth'],
         ]);
+    }
+
+    protected function getImage($data)
+    {
+        return ($data == 'Male') ? 'boy.svg' : 'girl.svg';
     }
 }

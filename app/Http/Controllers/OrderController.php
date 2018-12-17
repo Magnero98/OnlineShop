@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Order;
-use App\Cart;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\Debug\Tests\Fixtures\ToStringThrower;
+use App\Http\Controllers\Traits\Deletion;
 
 class OrderController extends Controller
 {
+    use Deletion;
+
+    public function __construct()
+    {
+        $this->middleware('isUserOrder')
+            ->only(['show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,12 +30,14 @@ class OrderController extends Controller
         if(roles('Administrator'))
         {
             $orders = Order::where('id', '!=', 0)
+                ->orderBy('created_at', 'DESC')
                 ->paginate(5);
         }
         else if(roles('User'))
         {
             $userId = Auth::user()->id;
             $orders = Order::where('user_id', 'LIKE', $userId)
+                ->orderBy('created_at', 'DESC')
                 ->paginate(5);
         }
 
@@ -36,12 +46,22 @@ class OrderController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return redirect(route('user::orders.store'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         $user = Auth::user();
         $products = $user->products;
@@ -52,17 +72,21 @@ class OrderController extends Controller
         $order->save();
 
         foreach ($products as $element)
+            if($element->stock < $element->pivot->quantity)
+                return "Product: " . $element->name . "Does not Have Enough Item Stock";
+
+        foreach ($products as $element)
         {
             $order->products()->attach(
                 $element->id,
-                ['quantity' => $element->quantity]);
+                ['quantity' => $element->pivot->quantity]);
 
             $product = Product::find($element->id);
-            $product->stock -= $element->quantity;
+            $product->stock -= $element->pivot->quantity;
             $product->save();
         }
 
-        return redirect(route('orders.index'));
+        return redirect(route('user::carts.clear'));
     }
 
     /**
@@ -110,8 +134,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $order = Order::find($id);
-        $order->delete();
+        $this->deleteOrder($id);
 
         return redirect(route('orders.index'));
     }

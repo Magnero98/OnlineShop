@@ -16,6 +16,15 @@
                     <br>
                     Stock : {{$product->stock}} unit(s)
                 </div>
+                @roles('User')
+                <div class="panel-footer">
+                    <form action="{{route('user::carts.store')}}" method="POST">
+                        {{csrf_field()}}
+                        <input type="hidden" name="productId" value="{{$product->id}}">
+                        <input class="btn btn-primary btn-block" type="image" src="{{asset('storage/images/add-to-cart-button.svg')}}" style="height: 35px">
+                    </form>
+                </div>
+                @endroles
             </div>
             @roles('Administrator')
                 <a class="btn btn-info pull-left" href="/products/{{$product->id}}/edit">Update</a>

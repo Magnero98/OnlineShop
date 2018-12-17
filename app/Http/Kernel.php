@@ -60,5 +60,7 @@ class Kernel extends HttpKernel
         'isAdmin' => \App\Http\Middleware\userRoleAuthentication\RedirectIfAdministrator::class,
         'isUser' => \App\Http\Middleware\userRoleAuthentication\RedirectIfUser::class,
         'isLoggedIn' => \App\Http\Middleware\userRoleAuthentication\RedirectIfAuthorized::class,
+        'isUserProfile' => \App\Http\Middleware\userDataAuthentication\RedirectIfAuthUserProfile::class,
+        'isUserOrder' => \App\Http\Middleware\userDataAuthentication\RedirectIfAuthUserOrder::class,
     ];
 }

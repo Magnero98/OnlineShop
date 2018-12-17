@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid row">
         <div class="col-md-4">
-            <a class="btn btn-default pull-right" href="/orders">Back</a>
+            <a class="btn btn-default pull-right" href="{{route('orders.index')}}">Back</a>
         </div>
         <div class="col-md-4">
             <div class="panel panel-default">
@@ -60,11 +60,13 @@
                 </form>
             @endroles
             @roles('User')
-                <form action="{{route('user::orders.destroy', ['id' => $order->id])}}" method="POST">
-                    {{csrf_field()}}
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input class="btn btn-danger" type="submit" value="Delete">
-                </form>
+                @if($order->status == 'pending')
+                    <form action="{{route('user::orders.destroy', ['id' => $order->id])}}" method="POST">
+                        {{csrf_field()}}
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input class="btn btn-danger" type="submit" value="Cancel Order">
+                    </form>
+                @endif
             @endroles
         </div>
     </div>

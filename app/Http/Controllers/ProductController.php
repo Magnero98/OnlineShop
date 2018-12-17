@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Traits\Deletion;
 use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    use Deletion;
     /**
      * Display a listing of the resource.
      *
@@ -104,8 +106,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
-        $product->delete();
+        $this->deleteProduct($id);
 
         return redirect(route('products.index'));
     }

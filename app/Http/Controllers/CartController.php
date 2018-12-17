@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Traits\Deletion;
 
 class CartController extends Controller
 {
+    use Deletion;
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +16,16 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $user = Auth::user();
+        $carts = $user->products;
+        $totalPrice = 0;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        foreach ($carts as $cart)
+            $totalPrice += $cart->price * $cart->pivot->quantity;
+
+        return view('carts.index')
+            ->with('carts', $carts)
+            ->with('totalPrice', $totalPrice);
     }
 
     /**
@@ -35,29 +36,15 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $user = Auth::user();
+        $productId = $request->productId;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cart $cart)
-    {
-        //
-    }
+        $product = $user->products->where('id', 'LIKE', $productId)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cart $cart)
-    {
-        //
+        if($product == null)
+            $user->products()->attach($productId,['quantity' => 1]);
+
+        return redirect(route('products.index'));
     }
 
     /**
@@ -67,9 +54,14 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, $productId)
     {
-        //
+        $user = Auth::user();
+        $cart = $user->products->where('id', 'LIKE', $productId)->first();
+        $cart->pivot->quantity = $request->quantity;
+        $cart->pivot->save();
+
+        return redirect(route('user::carts.index'));
     }
 
     /**
@@ -78,8 +70,19 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy($productId)
     {
-        //
+        $user = Auth::user();
+        $cart = $user->products->where('id', 'LIKE', $productId)->first();
+        $cart->pivot->delete();
+
+        return redirect(route('user::carts.index'));
+    }
+
+    public function clear()
+    {
+        $this->deleteCart();
+
+        return redirect(route('orders.index'));
     }
 }

@@ -16,30 +16,35 @@
 Route::middleware('isLoggedIn')->group(function(){
 
     Route::resource('/orders', 'OrderController')
-        ->only(['index', 'show', 'edit', 'update']);
+        ->only(['index', 'show', 'update']);
+
+    Route::resource('/users', 'UserController')
+        ->only(['show', 'edit', 'update', 'destroy']);
 
 });
 
 
 /*========== ROUTE GROUPS =========*/
 
-Route::group(['as' => 'admin::', 'middleware' => 'isAdmin'], function (){
+Route::group(['as' => 'admin::', 'middleware' => ['isLoggedIn', 'isAdmin']], function (){
 
     Route::resource('/users', 'UserController')
-        ->only(['index', 'show', 'edit', 'update', 'destroy']);
+        ->only(['index']);
 
     Route::resource('/products', 'ProductController')
         ->except(['index', 'show']);
 
 });
 
-Route::group(['as' => 'user::', 'middleware' => 'isUser'], function(){
+Route::group(['as' => 'user::', 'middleware' => ['isLoggedIn', 'isUser']], function(){
 
-    Route::resource('/orders', 'OrderController')
-        ->except(['index', 'show', 'edit', 'update']);
+    Route::get('/orders/create/cart', 'OrderController@create')->name('orders.create');
+    Route::get('/orders/insert/cart', 'OrderController@store')->name('orders.store');
+    Route::delete('/orders/{order}', 'OrderController@destroy')->name('orders.destroy');
 
     Route::resource('/carts', 'CartController')
         ->except(['create', 'edit']);
+    Route::get('/carts/clear/all', 'CartController@clear')->name('carts.clear');
 
 });
 
@@ -48,7 +53,7 @@ Route::group(['as' => 'user::', 'middleware' => 'isUser'], function(){
 
 Auth::routes();
 
-Route::get('/', 'ProductController@index')->name('home');
+Route::get('/', 'HomeController@index');
 
-Route::resource('/products', 'ProductController')
-    ->only(['index', 'show']);
+Route::get('/products', 'ProductController@index')->name('home');
+Route::get('/products/{product}', 'ProductController@show')->name('products.show');

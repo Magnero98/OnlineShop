@@ -23,7 +23,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "Garnet\\": "app/"
         },
         "files": ["app/Http/Helpers/BladeHelper.php"]
     },

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Garnet;
 
 use Illuminate\Database\Eloquent\Model;
 

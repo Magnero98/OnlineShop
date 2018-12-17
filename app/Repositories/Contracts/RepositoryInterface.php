@@ -6,7 +6,7 @@
  * Time: 6:02 PM
  */
 
-namespace App\Repositories\Contracts;
+namespace Garnet\Repositories\Contracts;
 
 
 Interface RepositoryInterface

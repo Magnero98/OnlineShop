@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Garnet\Http\Controllers;
 
-use App\Order;
-use App\Product;
+use Garnet\Order;
+use Garnet\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Traits\Deletion;
+use Garnet\Http\Controllers\Traits\Deletion;
 
 class OrderController extends Controller
 {
@@ -68,7 +68,7 @@ class OrderController extends Controller
 
         $order = new Order();
         $order->user_id = $user->id;
-        $order->status = 'pending';
+        $order->status = 'Pending';
         $order->save();
 
         foreach ($products as $element)
@@ -92,7 +92,7 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Order  $order
+     * @param  \Garnet\Order  $order
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -114,7 +114,7 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
+     * @param  \Garnet\Order  $order
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -129,7 +129,7 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Order  $order
+     * @param  \Garnet\Order  $order
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

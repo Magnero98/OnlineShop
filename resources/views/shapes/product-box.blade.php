@@ -15,12 +15,14 @@
                 </div>
             </a>
         </div>
-        <div class="panel-footer" role="add-to-cart-btn">
-            <form action="{{route('user::carts.store')}}" method="POST">
-                {{csrf_field()}}
-                <input type="hidden" name="productId" value="{{$product->id}}">
-                <input class="btn btn-primary btn-block" type="image" src="{{asset('storage/images/add-to-cart-button.svg')}}" style="height: 35px">
-            </form>
-        </div>
+        @roles('User')
+            <div class="panel-footer" role="add-to-cart-btn">
+                <form action="{{route('user::carts.store')}}" method="POST">
+                    {{csrf_field()}}
+                    <input type="hidden" name="productId" value="{{$product->id}}">
+                    <input class="btn btn-primary btn-block" type="image" src="{{asset('storage/images/add-to-cart-button.svg')}}" style="height: 35px">
+                </form>
+            </div>
+        @endroles
     </div>
 </div>

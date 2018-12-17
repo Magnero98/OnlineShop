@@ -163,7 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        App\Providers\BladeServiceProvider::class,
+        Garnet\Providers\BladeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -172,11 +172,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Garnet\Providers\AppServiceProvider::class,
+        Garnet\Providers\AuthServiceProvider::class,
+        // Garnet\Providers\BroadcastServiceProvider::class,
+        Garnet\Providers\EventServiceProvider::class,
+        Garnet\Providers\RouteServiceProvider::class,
 
     ],
 

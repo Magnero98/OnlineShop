@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Garnet;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -45,6 +45,7 @@ class User extends Authenticatable
                 'created_at',
                 'updated_at'
             ])
+            ->orderBy('created_at', 'ASC')
             ->withTimestamps();
     }
 }

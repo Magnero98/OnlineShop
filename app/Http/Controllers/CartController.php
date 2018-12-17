@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Garnet\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Traits\Deletion;
+use Garnet\Http\Controllers\Traits\Deletion;
 
 class CartController extends Controller
 {
@@ -44,14 +44,14 @@ class CartController extends Controller
         if($product == null)
             $user->products()->attach($productId,['quantity' => 1]);
 
-        return redirect(route('products.index'));
+        return redirect(route('home'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cart  $cart
+     * @param  \Garnet\Cart  $cart
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $productId)
@@ -67,7 +67,7 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cart  $cart
+     * @param  \Garnet\Cart  $cart
      * @return \Illuminate\Http\Response
      */
     public function destroy($productId)

@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div id="app">
@@ -46,24 +48,34 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li class="nav">
-                                <a href="">Order History</a>
-                            </li>
-                            <li class="nav">
-                                <a href="">Order History</a>
-                            </li>
-                            <li class="nav">
-                                <a href="">Order History</a>
-                            </li>
-                            <li class="nav">
-                                <a href="">Order History</a>
-                            </li>
+                            @roles('User')
+                                <li class="nav">
+                                    <a href="{{route('user::carts.index')}}"><span class="fa fa-shopping-cart" style="font-size: 22px; padding-right: 5px"></span> Cart</a>
+                                </li>
+                                <li class="nav">
+                                    <a href="{{route('orders.index')}}"><span class="fa fa-history" style="font-size: 22px; padding-right: 5px"></span> Order History</a>
+                                </li>
+                            @endroles
+                            @roles('Administrator')
+                                <li class="nav">
+                                    <a href="{{route('admin::products.create')}}"><span class="fa fa-dropbox" style="font-size: 22px; padding-right: 5px"></span> Create Product</a>
+                                </li>
+                                <li class="nav">
+                                    <a href="{{route('admin::users.index')}}"><span class="fa fa-users" style="font-size: 22px; padding-right: 5px"></span> User List</a>
+                                </li>
+                                <li class="nav">
+                                    <a href="{{route('orders.index')}}"><span class="fa fa-bars" style="font-size: 22px; padding-right: 5px"></span> Order List</a>
+                                </li>
+                            @endroles
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <span class="fa fa-user-circle" style="font-size: 22px; padding-right: 5px"></span> {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{route('users.show', ['id' => Auth::user()->id])}}">Profile</a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

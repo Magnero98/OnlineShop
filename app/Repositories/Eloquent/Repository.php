@@ -6,12 +6,12 @@
  * Time: 6:33 PM
  */
 
-namespace App\Repositories\Eloquent;
+namespace Garnet\Repositories\Eloquent;
 
-use App\Repositories\Contracts\CriteriaInterface;
-use App\Repositories\Contracts\RepositoryInterface;
-use App\Repositories\Criteria\Criteria;
-use App\Repositories\Exceptions\MistypeOfModelException;
+use Garnet\Repositories\Contracts\CriteriaInterface;
+use Garnet\Repositories\Contracts\RepositoryInterface;
+use Garnet\Repositories\Criteria\Criteria;
+use Garnet\Repositories\Exceptions\MistypeOfModelException;
 use Illuminate\Container as App;
 
 abstract class Repository implements RepositoryInterface, CriteriaInterface

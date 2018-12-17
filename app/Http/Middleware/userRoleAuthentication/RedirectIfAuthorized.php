@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\userRoleAuthentication;
+namespace Garnet\Http\Middleware\userRoleAuthentication;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

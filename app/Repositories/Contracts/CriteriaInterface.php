@@ -6,10 +6,10 @@
  * Time: 6:29 PM
  */
 
-namespace App\Repositories\Contracts;
+namespace Garnet\Repositories\Contracts;
 
 
-use App\Repositories\Criteria\Criteria;
+use Garnet\Repositories\Criteria\Criteria;
 
 Interface CriteriaInterface
 {

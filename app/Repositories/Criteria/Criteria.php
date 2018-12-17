@@ -6,7 +6,7 @@
  * Time: 7:14 PM
  */
 
-namespace App\Repositories\Criteria;
+namespace Garnet\Repositories\Criteria;
 
 
 abstract class Criteria

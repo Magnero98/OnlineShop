@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Middleware\userDataAuthentication;
+namespace Garnet\Http\Middleware\userDataAuthentication;
 
-use App\Order;
+use Garnet\Order;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 

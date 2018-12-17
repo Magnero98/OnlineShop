@@ -12,11 +12,11 @@
                         <li class="list-group-item list-group-item-success">Order Id : {{$order->id}}</li>
                         <li class="list-group-item">User : {{$order->user->name}}</li>
                         <li class="list-group-item">Order Date : {{$order->created_at}}</li>
-                        @if($order->status == 'pending')
+                        @if($order->status == 'Pending')
                             <li class="list-group-item"><button class="btn btn-warning btn-block">{{$order->status}}</button></li>
-                        @elseif($order->status == 'process')
+                        @elseif($order->status == 'Process')
                             <li class="list-group-item"><button class="btn btn-info btn-block">{{$order->status}}</button></li>
-                        @elseif($order->status == 'delivered')
+                        @elseif($order->status == 'Delivered')
                             <li class="list-group-item"><button class="btn btn-default btn-block">{{$order->status}}</button></li>
                         @endif
                     </ul>
@@ -50,21 +50,21 @@
                 <form action="{{route('orders.update', ['id' => $order->id])}}" method="POST">
                     {{csrf_field()}}
                     <input type="hidden" name="_method" value="PUT">
-                    @if($order->status == 'pending')
-                        <input type="hidden" name="status" value="process">
-                        <input class="btn btn-primary" type="submit" value="Process Order">
-                    @elseif($order->status == 'process')
-                        <input type="hidden" name="status" value="delivered">
-                        <input class="btn btn-primary" type="submit" value="Deliver Order">
+                    @if($order->status == 'Pending')
+                        <input type="hidden" name="status" value="Process">
+                        <input class="btn btn-block btn-primary" type="submit" value="Process Order">
+                    @elseif($order->status == 'Process')
+                        <input type="hidden" name="status" value="Delivered">
+                        <input class="btn btn-block btn-primary" type="submit" value="Deliver Order">
                     @endif
                 </form>
             @endroles
             @roles('User')
-                @if($order->status == 'pending')
+                @if($order->status == 'Pending')
                     <form action="{{route('user::orders.destroy', ['id' => $order->id])}}" method="POST">
                         {{csrf_field()}}
                         <input type="hidden" name="_method" value="DELETE">
-                        <input class="btn btn-danger" type="submit" value="Cancel Order">
+                        <input class="btn btn-block btn-danger" type="submit" value="Cancel Order">
                     </form>
                 @endif
             @endroles

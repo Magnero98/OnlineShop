@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\userDataAuthentication;
+namespace Garnet\Http\Middleware\userDataAuthentication;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

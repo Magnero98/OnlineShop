@@ -2,7 +2,9 @@
 
 @section('content')
     <div class="container-fluid row">
-        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <a class="btn btn-default pull-right" href="{{ route('home') }}">Back</a>
+        </div>
         <div class="col-md-4">
             @foreach($carts as $cart)
                 <div class="well" style="padding-top: 5px">

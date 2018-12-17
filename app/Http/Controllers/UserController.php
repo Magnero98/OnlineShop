@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Garnet\Http\Controllers;
 
-use App\User;
+use Garnet\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Traits\Deletion;
+use Garnet\Http\Controllers\Traits\Deletion;
 
 class UserController extends Controller
 {
@@ -24,7 +24,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('id', '!=', '0')->paginate(5);
+        $users = User::where('id', '!=', '0')
+                ->orderBy('created_at', 'DESC')
+                ->paginate(5);
 
         return view('users.index')
             ->with('users', $users);
@@ -92,7 +94,7 @@ class UserController extends Controller
 
         if(Auth::user()->role->name == 'Administrator')
         {
-            return redirect(route('users.index'));
+            return redirect(route('admin::users.index'));
         }
         else if(Auth::user()->role->name == 'User')
         {

@@ -6,11 +6,11 @@
  * Time: 9:20 PM
  */
 
-namespace App\Http\Controllers\Traits;
+namespace Garnet\Http\Controllers\Traits;
 
-use App\Order;
-use App\User;
-use App\Product;
+use Garnet\Order;
+use Garnet\User;
+use Garnet\Product;
 use Illuminate\Support\Facades\Auth;
 
 trait Deletion

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid row">
         <div class="col-md-4">
-            <a class="btn btn-default pull-right" href="/products">Back</a>
+            <a class="btn btn-default pull-right" href="{{route('home')}}">Back</a>
         </div>
         <div class="col-md-4">
             <div class="panel panel-info">

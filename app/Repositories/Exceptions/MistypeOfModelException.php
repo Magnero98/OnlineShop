@@ -6,7 +6,7 @@
  * Time: 6:51 PM
  */
 
-namespace App\Repositories\Exceptions;
+namespace Garnet\Repositories\Exceptions;
 
 
 class MistypeOfModelException extends \Exception

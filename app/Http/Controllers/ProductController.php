@@ -12,6 +12,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @author Yansen
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -19,7 +20,8 @@ class ProductController extends Controller
     {
         $products = Product::where('name', 'LIKE' , '%' . $request->keyword . '%')
             ->orderBy('created_at', 'DESC')
-            ->paginate(12);
+            ->paginate(12)
+            ->appends($request->only('keyword'));
 
         return view('products.index')
             ->with('products', $products);

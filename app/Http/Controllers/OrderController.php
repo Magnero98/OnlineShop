@@ -23,15 +23,16 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $orders = null;
 
         if(roles('Administrator'))
         {
-            $orders = Order::where('id', '!=', 0)
+            $orders = Order::where('created_at', 'LIKE', '%' . $request->keyword . '%')
                 ->orderBy('created_at', 'DESC')
-                ->paginate(5);
+                ->paginate(5)
+                ->appends($request->only('keyword'));
         }
         else if(roles('User'))
         {

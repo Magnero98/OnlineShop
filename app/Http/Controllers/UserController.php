@@ -22,11 +22,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('id', '!=', '0')
+        $users = User::where('id', 'LIKE', '%' . $request->keyword . '%')
                 ->orderBy('created_at', 'DESC')
-                ->paginate(5);
+                ->paginate(5)
+                ->appends($request->only('keyword'));
 
         return view('users.index')
             ->with('users', $users);

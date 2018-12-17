@@ -4,6 +4,15 @@
     <div class="container-fluid row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
+            <div class="panel panel-default">
+                <form id="search-form" class="panel-heading form-horizontal" action="{{route('orders.index')}}" method="GET">
+                    <div class="input-group">
+                        <span class="input-group-addon">Search User</span>
+                        <input id="email" type="date" class="form-control" name="keyword" placeholder="Type Something Here . . .">
+                        <span class="input-group-addon" onclick="document.getElementById('search-form').submit();"><i class="fa fa-search"></i></span>
+                    </div>
+                </form>
+            </div>
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <th>User Id</th>

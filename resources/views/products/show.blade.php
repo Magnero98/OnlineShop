@@ -8,7 +8,7 @@
         <div class="col-md-4">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <img class="img-responsive" src="{{asset('storage/images/garnet-shop.png')}}">
+                    <img class="img-responsive" src="{{asset('storage/images/item-bag.svg')}}">
                 </div>
                 <div class="panel-body">
                     <p class="lead text-center text-primary">{{$product->name}}</p>

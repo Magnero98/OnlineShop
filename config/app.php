@@ -163,7 +163,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Garnet\Providers\BladeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -177,7 +176,7 @@ return [
         // Garnet\Providers\BroadcastServiceProvider::class,
         Garnet\Providers\EventServiceProvider::class,
         Garnet\Providers\RouteServiceProvider::class,
-
+        Garnet\Providers\BladeServiceProvider::class,
     ],
 
     /*

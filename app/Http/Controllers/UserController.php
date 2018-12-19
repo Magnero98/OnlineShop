@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::where('id', 'LIKE', '%' . $request->keyword . '%')
+        $users = User::where('name', 'LIKE', '%' . $request->keyword . '%')
                 ->orderBy('created_at', 'DESC')
                 ->paginate(5)
                 ->appends($request->only('keyword'));

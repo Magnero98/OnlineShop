@@ -15,6 +15,8 @@
                     Price : IDR {{$product->price}},00
                     <br>
                     Stock : {{$product->stock}} unit(s)
+
+                    {{var_dump($product)}}
                 </div>
                 @roles('User')
                 <div class="panel-footer">

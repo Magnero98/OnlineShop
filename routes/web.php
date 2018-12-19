@@ -48,6 +48,7 @@ Route::group(['as' => 'user::', 'middleware' => ['isLoggedIn', 'isUser']], funct
 
 });
 
+Route::get('/products', 'ProductController@index');
 
 /*========== GENERAL ROUTES =========*/
 

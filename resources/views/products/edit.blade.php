@@ -8,7 +8,7 @@
         <div class="col-md-4">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <img class="img-responsive" src="{{asset('storage/images/garnet-shop.png')}}">
+                    <img class="img-responsive" src="{{asset('storage/images/item-bag.svg')}}">
                 </div>
                 <div class="panel-body">
                     <form action="/products/{{$product->id}}" method="POST">
